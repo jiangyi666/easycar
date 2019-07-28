@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="easy car:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/easy_car_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="easy car/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="easy car" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="JavaEE" />
+          <element id="library" level="project" name="Spring-4.3.18.RELEASE" />
+          <element id="library" level="project" name="Spring MVC" />
+          <element id="library" level="project" name="javax.mail" />
+          <element id="library" level="project" name="javax.activation" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

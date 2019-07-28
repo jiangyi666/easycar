@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itcast.crm.mapper.CustomerMapper">
+    <sql id="customerQueryVo">
+
+            <if test="startAddress != null and startAddress != ''">
+                AND start_address LIKE '%${startAddress}%'
+            </if>
+            <if test="endAddress != null and endAddress != ''">
+                AND end_Address  LIKE '%${endAddress}%'
+            </if>
+            <if test="orderDate != null and orderDate != ''">
+                AND orderdate = #{orderDate}
+            </if>
+
+    </sql>
+
+    <!-- 根据queryVo分页查询数据 -->
+    <select id="queryCustomerByQueryVo" parameterType="com.itcast.crm.pojo.QueryVo"
+            resultType="com.itcast.crm.pojo.Customer">
+        select customer.customerno,orderno,customername,qq,wechat,phone,orderdate,start_address,end_address,note
+        from
+        customer,ordermaster
+        WHERE
+        customer.customerno=ordermaster.customerno
+        <include refid="customerQueryVo" />
+        <if test="start != null">
+            LIMIT #{start}, #{rows}
+        </if>
+    </select>
+
+    <!-- 根据queryVo查询数据条数 -->
+    <select id="queryCountByQueryVo" parameterType="com.itcast.crm.pojo.QueryVo"
+            resultType="int">
+        SELECT count(1) FROM ordermaster
+        <where>
+        <if test="startAddress != null and startAddress != ''">
+            AND start_address LIKE '%${startAddress}%'
+        </if>
+        <if test="endAddress != null and endAddress != ''">
+            AND end_Address  LIKE '%${endAddress}%'
+        </if>
+        <if test="orderDate != null and orderDate != ''">
+            AND orderdate = #{orderDate}
+        </if>
+        </where>
+    </select>
+    <!--根据订单编号来查询该订单得具体信息-->
+    <select id="queryCustomerById" resultType="com.itcast.crm.pojo.Customer" >
+         select customer.customerno,customername,qq,wechat,phone,orderdate,start_address,end_address,note
+        from customer,ordermaster
+         where ordermaster.orderno=#{id}
+         and
+         customer.customerno=ordermaster.customerno
+
+    </select>
+    <!--创建一条用户的拼车信息-->
+    <insert id="createInfo" parameterType="com.itcast.crm.pojo.Customer">
+        insert into ordermaster(orderno,orderdate,start_address,end_address,note,customerno)
+        values (#{orderno},#{orderdate},#{start_address},#{end_address},#{note},#{customerno})
+    </insert>
+    <!--注册一个新用户-->
+    <insert id="createNewUser" parameterType="com.itcast.crm.pojo.Customer">
+        insert into customer(customername,password,email,qq,wechat,phone)
+        values(#{customername},#{password},#{email},#{qq},#{wechat},#{phone})
+    </insert>
+
+    <!--登录验证-->
+    <select id="checkLogin" resultType="com.itcast.crm.pojo.Customer" >
+         select email,password,customername,customerno from customer where email=#{email} and password=#{password}
+    </select>
+
+
+</mapper>
