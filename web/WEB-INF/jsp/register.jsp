@@ -55,14 +55,14 @@
             }
 
         }
-        var c=10;
+        var c=60;
         var t;
         function timeCount() {
             document.getElementById("time").innerHTML=c;
             c-=1;
             t=setTimeout("timeCount()",1000);
             if(c==0){
-                c=10;
+                c=60;
                 clearTimeout(t);
             }
         }
