@@ -105,7 +105,7 @@ public class LoginController {
         System.out.println("邮箱验证码:"+code);
         httpSession.setAttribute("code",code);
         System.out.println("发送成功！");
-        return "OK";
+        return "1";
     }
     @RequestMapping("register")
     public String register(Customer customer, HttpSession httpSession){

@@ -72,5 +72,10 @@
          select email,password,customername,customerno from customer where email=#{email} and password=#{password}
     </select>
 
+    <!--检验邮箱是否已经注册过-->
+    <select id="checkEmailIsExisted" resultType="int">
+        select customerno from user where email=#{email}
+    </select>
+
 
 </mapper>

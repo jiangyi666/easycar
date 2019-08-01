@@ -31,7 +31,7 @@
 
         })
         function sendEmail() {
-            if ($("#inputEmail").val())
+            if ($("#inputEmail").val()&&/@/.test($("#inputEmail").val()))
             {
                 $.ajax({
                     type:"POST",
@@ -50,7 +50,10 @@
                         timeCount();
                     },
                 })
-            }else {
+            }else if(!/@/.test($("#inputEmail").val())){
+                alert("请填写正确的邮箱地址！")
+            }
+            else {
                 alert("失败！请填写邮箱！");
             }
 
@@ -92,19 +95,19 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPhone" autofocus required name="phone"
+                        <input type="text" class="form-control" id="inputPhone" autofocus required name="phone"
                                placeholder="手机号">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputQq" autofocus  name="qq"
+                        <input type="text" class="form-control" id="inputQq" autofocus  name="qq"
                                placeholder="(选填)QQ号码">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputWechat" autofocus  name="wechat"
+                        <input type="text" class="form-control" id="inputWechat" autofocus  name="wechat"
                                placeholder="(选填)微信号">
                     </div>
                 </div>
