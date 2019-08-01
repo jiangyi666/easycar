@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class JavaMailUtil {
     //发件人的邮箱和密码
-    public static String emailAccount="820927710@qq.com";
+    public static String emailAccount="jiangyi_best@qq.com";
     //发件人的邮箱得授权码
     public static String emailPassword="kawiqbucxxnbbeie";
     //发件人邮箱得服务地址

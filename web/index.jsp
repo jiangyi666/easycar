@@ -63,7 +63,7 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img alt="" src="http://localhost:8080/img/pic1.jpg"/>
+                        <img alt="" src="http://117.78.0.54:8080/img/pic1.jpg"/>
                         <div class="carousel-caption">
                             <h4>
                                 First Thumbnail label
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img alt="" src="http://localhost:8080/img/pic2.jpg"/>
+                        <img alt="" src="http://117.78.0.54:8080/img/pic2.jpg"/>
                         <div class="carousel-caption">
                             <h4>
                                 Second Thumbnail label
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img alt="" src="http://localhost:8080/img/pic3.jpg"/>
+                        <img alt="" src="http://117.78.0.54:8080/img/pic3.jpg"/>
                         <div class="carousel-caption">
                             <h4>
                                 Third Thumbnail label

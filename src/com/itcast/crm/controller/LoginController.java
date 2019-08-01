@@ -67,7 +67,7 @@ public class LoginController {
         String status = customerService.checkEmailIsExisted(email);
         if(status==null){//该邮箱不存在，即允许注册
             //平时测试编码时关闭下面代码，要不然一直发送邮件不好。。。。
-      /*  JavaMailUtil.receiveMailAccount=email;//给用户输入的邮箱发送邮件
+    JavaMailUtil.receiveMailAccount=email;//给用户输入的邮箱发送邮件
         //1.创建参数配置，用来连接邮箱服务器的参数配置
         Properties props = new Properties();
         //开启Debug模式
@@ -104,8 +104,8 @@ public class LoginController {
             System.out.println("发送失败!");
             return "false";
         }
-        System.out.println("这是要发送的邮箱"+email);*/
-            String code = RandomUtil.getRandom();/*测试的时候使用，非测试请注释掉*/
+            System.out.println("这是要发送的邮箱"+email);
+            //String code = RandomUtil.getRandom();/*测试的时候使用，非测试请注释掉*/
             System.out.println("邮箱验证码:" + code);
             httpSession.setAttribute("code", code);
             System.out.println("发送成功！");
