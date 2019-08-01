@@ -19,6 +19,6 @@ public interface CustomerMapper {
     //用来登录的时候用来做登录校验
     public Customer checkLogin(Customer customer);
     //用来检验邮箱是否已经注册过
-    public int checkEmailIsExisted(String email);
+    public String checkEmailIsExisted(String email);
 
 }

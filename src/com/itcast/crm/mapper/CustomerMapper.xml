@@ -73,8 +73,8 @@
     </select>
 
     <!--检验邮箱是否已经注册过-->
-    <select id="checkEmailIsExisted" resultType="int">
-        select customerno from user where email=#{email}
+    <select id="checkEmailIsExisted" resultType="string">
+        select customerno from customer where email=#{email}
     </select>
 
 

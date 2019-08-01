@@ -40,6 +40,7 @@
                         email:$("#inputEmail").val(),
                     },
                     success:function (data) {
+                        if(data==1){
                         alert("已成功发送验证码到指定邮箱！");
                         //点击发送验证码按钮后，按钮变成灰色不可以点击60秒
                         $("#getCode").attr("disabled",true);
@@ -48,6 +49,9 @@
                         //显示60秒倒计时
                         $("#tipReSend").show();
                         timeCount();
+                        }else {
+                            alert("该邮箱已经被注册过！")
+                        }
                     },
                 })
             }else if(!/@/.test($("#inputEmail").val())){

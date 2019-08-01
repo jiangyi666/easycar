@@ -62,7 +62,11 @@ public class LoginController {
     @RequestMapping("sendEmail")
     @ResponseBody
     public String sendEmail(String email, HttpSession httpSession){
-        //平时测试编码时关闭下面代码，要不然一直发送邮件不好。。。。
+        //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
+        //如果不存在就会返回null
+        String status = customerService.checkEmailIsExisted(email);
+        if(status==null){//该邮箱不存在，即允许注册
+            //平时测试编码时关闭下面代码，要不然一直发送邮件不好。。。。
       /*  JavaMailUtil.receiveMailAccount=email;//给用户输入的邮箱发送邮件
         //1.创建参数配置，用来连接邮箱服务器的参数配置
         Properties props = new Properties();
@@ -101,11 +105,14 @@ public class LoginController {
             return "false";
         }
         System.out.println("这是要发送的邮箱"+email);*/
-        String code = RandomUtil.getRandom();/*测试的时候使用，非测试请注释掉*/
-        System.out.println("邮箱验证码:"+code);
-        httpSession.setAttribute("code",code);
-        System.out.println("发送成功！");
-        return "1";
+            String code = RandomUtil.getRandom();/*测试的时候使用，非测试请注释掉*/
+            System.out.println("邮箱验证码:" + code);
+            httpSession.setAttribute("code", code);
+            System.out.println("发送成功！");
+            return "1";//返回1表示邮箱不存在且发送验证码成功
+        }else {
+            return "0";//该邮箱存在，放回0，提示（不允许注册)
+        }
     }
     @RequestMapping("register")
     public String register(Customer customer, HttpSession httpSession){

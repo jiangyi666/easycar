@@ -55,5 +55,11 @@ return page;
         return customerMapper.checkLogin(customer);
     }
 
+    @Override
+    public String checkEmailIsExisted(String email) {
+        return customerMapper.checkEmailIsExisted(email);
+
+    }
+
 
 }
