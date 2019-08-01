@@ -66,11 +66,11 @@
                         <img alt="" src="http://117.78.0.54:8080/img/pic1.jpg"/>
                         <div class="carousel-caption">
                             <h4>
-                                First Thumbnail label
+                                <%--First Thumbnail label--%>
+                                Easy Car.
                             </h4>
                             <p>
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                               出行从此十分简单
                             </p>
                         </div>
                     </div>
@@ -78,11 +78,10 @@
                         <img alt="" src="http://117.78.0.54:8080/img/pic2.jpg"/>
                         <div class="carousel-caption">
                             <h4>
-                                Second Thumbnail label
+                                <%--Second Thumbnail label--%>
                             </h4>
                             <p>
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
                             </p>
                         </div>
                     </div>
@@ -90,11 +89,10 @@
                         <img alt="" src="http://117.78.0.54:8080/img/pic3.jpg"/>
                         <div class="carousel-caption">
                             <h4>
-                                Third Thumbnail label
+                                <%--Third Thumbnail label--%>
                             </h4>
                             <p>
-                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                                gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
                             </p>
                         </div>
                     </div>
@@ -117,8 +115,8 @@
 
         <!-- FOOTER -->
         <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2019 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+            <p class="pull-right">All Rights Reserved.</p>
+            <p>&copy; 2019 Easy Car. &middot; </p>
 
         </footer>
     </div>
