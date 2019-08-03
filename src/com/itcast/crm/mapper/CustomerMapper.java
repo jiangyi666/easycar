@@ -10,7 +10,7 @@ public interface CustomerMapper {
     List<Customer> queryCustomerByQueryVo(QueryVo queryVo);
     //根据queryVo查询数据条数
     public int queryCountByQueryVo(QueryVo queryVo);
-    //根据id查询客户
+    //根据订单编号来查询该订单得具体信息
     public Customer queryCustomerById(Long id);
     //创建拼车信息
     public void createInfo(Customer customer);
@@ -20,5 +20,7 @@ public interface CustomerMapper {
     public Customer checkLogin(Customer customer);
     //用来检验邮箱是否已经注册过
     public String checkEmailIsExisted(String email);
+    //用来查看个人已发布的信息
+    List<Customer> queryPersonalInfoByCno(Long customerNo);
 
 }

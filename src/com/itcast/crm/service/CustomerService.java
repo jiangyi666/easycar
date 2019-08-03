@@ -4,6 +4,8 @@ import com.itcast.common.utils.Page;
 import com.itcast.crm.pojo.Customer;
 import com.itcast.crm.pojo.QueryVo;
 
+import java.util.List;
+
 public interface CustomerService {
     //根据条件分页查询用用户
     public Page<Customer> queryCustomerByQueryVo(QueryVo queryVo);
@@ -22,4 +24,6 @@ public interface CustomerService {
     public Customer checkLogin(Customer customer);
     //用来检验邮箱是否已经注册过
     public String checkEmailIsExisted(String email);
+    //用来查看个人已发布的信息
+    List<Customer> queryPersonalInfoByCno(Long customerNo);
 }

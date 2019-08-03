@@ -125,10 +125,10 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
 
-                    <li><a href="#page-wrapper2" class="active"><i
-                            class="fa fa-edit fa-fw"></i> 关于本站</a></li>
-                    <li><a href="salevisit.action"><i
-                            class="fa fa-dashboard fa-fw"></i> 鼓励一下</a></li>
+                    <li><a href="<%=basePath%>/customer/list.action" class="active"><i
+                            class="fa fa-edit fa-fw"></i>查询拼车</a></li>
+                    <li><a href="<%=basePath%>/customer/toPersonInfo.action"><i
+                            class="fa fa-dashboard fa-fw"></i> 我的发布</a></li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
@@ -215,7 +215,6 @@
     </div>
     <!-- /#page-wrapper -->
 
-
 </div>
 <!-- 客户编辑对话框 -->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
@@ -299,88 +298,7 @@
         </div>
     </div>
 </div>
-<!--客户创建拼车信息 -->
-<div class="modal fade" id="customerCreateInfo" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel2">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel2">创建拼车信息</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="create_info_form">
-                    <input type="hidden" id="create_customerno" name="customerno"/>
-                    <div class="form-group">
-                        <label for="create_customerName" class="col-sm-2 control-label">用户名</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_customerName" placeholder="用户名"
-                                   readonly name="customername">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="create_startAddress" class="col-sm-2 control-label">起点</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_startAddress" placeholder="起点"
-                                   readonly name="start_address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="create_endAddress" class="col-sm-2 control-label">终点</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_endAddress" placeholder="终点"
-                                   readonly name="end_address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="create_orderDate" class="col-sm-2 control-label">时间</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_orderDate" placeholder="时间"
-                                   readonly name="orderdate">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="create_phone" class="col-sm-2 control-label">电话</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_phone" placeholder="电话"
-                                   readonly name="phone">
-                        </div>
-                    </div>
-                    <div class="form-group">
 
-                    </div>
-                    <div class="form-group">
-                        <label for="create_qq" class="col-sm-2 control-label">QQ号码</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_qq" placeholder="QQ号码"
-                                   readonly name="qq">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="create_wechat" class="col-sm-2 control-label">微信</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="create_wechat" placeholder="微信"
-                                   readonly name="wechat">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="create_note" class="col-sm-2 control-label">备注</label>
-                        <div class="col-sm-10">
-                            <textarea type="" style="resize: none;overflow: hidden" class="form-control"
-                                      id="create_note" placeholder="备注"
-                                      readonly name="note"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 </body>

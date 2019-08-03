@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.java2d.pipe.SolidTextRenderer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -49,9 +50,32 @@ public class CustomerController {
         return customerService.queryCustomerById(id);
     }
 
+    /**
+     * 用来跳转到创建发布信息界面
+     * @return
+     */
     @RequestMapping("toCreate")
     public String toCreateInfo() {
         return "createInfo";
+    }
+
+    /**
+     * 用来跳转到查看个人的发布信息界面
+     * @return
+     */
+
+    @RequestMapping("toPersonInfo")
+    public String toPersonInfo(){
+        return "personalInfo";
+    }
+
+    /**
+     * 用来跳转到主界面，即查看和查询所有发布信息界面
+     * @return
+     */
+    @RequestMapping("toCustomer")
+    public String toCustomer(){
+        return "customer";
     }
 
 

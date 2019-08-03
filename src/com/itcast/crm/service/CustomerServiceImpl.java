@@ -61,5 +61,10 @@ return page;
 
     }
 
+    @Override
+    public List<Customer> queryPersonalInfoByCno(Long customerNo) {
+        return customerMapper.queryPersonalInfoByCno(customerNo);
+    }
+
 
 }
