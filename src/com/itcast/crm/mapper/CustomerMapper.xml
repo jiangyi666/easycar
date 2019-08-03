@@ -79,7 +79,7 @@
 
     <!--根据个人编号来查看个人的所有已近发布信息-->
     <select id="queryPersonalInfoByCno" resultType="com.itcast.crm.pojo.Customer" >
-        select customer.customerno,customername,qq,wechat,phone,orderdate,start_address,end_address,note
+        select customer.customerno,customername,qq,wechat,phone,orderno,orderdate,start_address,end_address,note
         from customer,ordermaster
          where
          customer.customerno=#{customerNo}

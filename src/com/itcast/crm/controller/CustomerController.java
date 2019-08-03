@@ -65,7 +65,13 @@ public class CustomerController {
      */
 
     @RequestMapping("toPersonInfo")
-    public String toPersonInfo(){
+    public String toPersonInfo(Model model,HttpServletRequest request){
+        //从session中拿取之前登陆成功存储的客户编号
+        Long customerno = (Long)request.getSession().getAttribute("customerNo");
+//        System.out.println(customerno);
+        List<Customer> list = customerService.queryPersonalInfoByCno(customerno);
+        //将已发布的信息回显给前端
+        model.addAttribute("list",list);
         return "personalInfo";
     }
 

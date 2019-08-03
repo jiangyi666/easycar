@@ -62,6 +62,27 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        function editCustomer(id) {
+            $.ajax({
+                type: "get",
+                url: "<%=basePath%>customer/edit.action",
+                data: {"id": id},
+                success: function (data) {
+                    $("#detail_customernoo").val(data.customerno);
+                    $("#detail_customerName").val(data.customername);
+                    $("#detail_startAddress").val(data.start_address);
+                    $("#detail_endAddress").val(data.end_address)
+                    $("#detail_orderDate").val(data.orderdate)
+                    $("#detail_phone").val(data.phone)
+                    $("#detail_qq").val(data.qq);
+                    $("#detail_wechat").val(data.wechat);
+                    $("#detail_note").val(data.note);
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -128,12 +149,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">以下为查询结果</div>
+                    <div class="panel-heading">以下为您所有已发布信息</div>
                     <!-- /.panel-heading -->
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>用户名</th>
                             <th>起点</th>
                             <th>终点</th>
                             <th>出发时间</th>
@@ -141,9 +161,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${page.rows}" var="row">
+                        <c:forEach items="${list}" var="row">
                             <tr>
-                                <td>${row.customername}</td>
                                 <td>${row.start_address}</td>
                                 <td>${row.end_address}</td>
                                 <td>${row.orderdate}</td>
@@ -152,7 +171,7 @@
                                        data-target="#customerEditDialog"
                                        onclick="editCustomer(${row.orderno})">查看&修改</a>
                                     <a href="#" class="btn btn-danger btn-xs"
-                                       onclick="deleteCustomer(${row.cust_id})">删除</a>
+                                       onclick="deleteCustomer(${row.customerno})">删除</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -166,6 +185,90 @@
         </div>
     </div>
     <!-- /#page-wrapper -->
+</div>
+<!-- 客户编辑对话框 -->
+<div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">查看详情</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="edit_customer_form">
+                    <input type="hidden" id="detail_customerno" name="customerno"/>
+                    <div class="form-group">
+                        <label for="detail_customerName" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_customerName" placeholder="用户名"
+                                   readonly name="customername">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_startAddress" class="col-sm-2 control-label">起点</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_startAddress" placeholder="起点"
+                                   readonly name="start_address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_endAddress" class="col-sm-2 control-label">终点</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_endAddress" placeholder="终点"
+                                   readonly name="end_address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_orderDate" class="col-sm-2 control-label">时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_orderDate" placeholder="时间"
+                                   readonly name="orderdate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_phone" class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_phone" placeholder="电话"
+                                   readonly name="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_qq" class="col-sm-2 control-label">QQ号码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_qq" placeholder="QQ号码"
+                                   readonly name="qq">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_wechat" class="col-sm-2 control-label">微信</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="detail_wechat" placeholder="微信"
+                                   readonly name="wechat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail_note" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <textarea type="" style="resize: none;overflow: hidden" class="form-control"
+                                      id="detail_note" placeholder="备注"
+                                      readonly name="note">
+
+                            </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
