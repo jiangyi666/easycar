@@ -26,4 +26,6 @@ public interface CustomerService {
     public String checkEmailIsExisted(String email);
     //用来查看个人已发布的信息
     List<Customer> queryPersonalInfoByCno(Long customerNo);
+    //修改发布的拼车信息(根据orderno来)
+    public void updateInfo(Customer customer);
 }

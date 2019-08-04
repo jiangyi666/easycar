@@ -56,11 +56,13 @@
          customer.customerno=ordermaster.customerno
 
     </select>
+
     <!--创建一条用户的拼车信息-->
     <insert id="createInfo" parameterType="com.itcast.crm.pojo.Customer">
         insert into ordermaster(orderno,orderdate,start_address,end_address,note,customerno)
         values (#{orderno},#{orderdate},#{start_address},#{end_address},#{note},#{customerno})
     </insert>
+
     <!--注册一个新用户-->
     <insert id="createNewUser" parameterType="com.itcast.crm.pojo.Customer">
         insert into customer(customername,password,email,qq,wechat,phone)
@@ -86,6 +88,17 @@
          and
          customer.customerno=ordermaster.customerno
     </select>
+
+    <!--根据订单编号orderno来修改一条拼车信息记录-->
+    <update id="updateInfo" parameterType="com.itcast.crm.pojo.Customer">
+        update ordermaster
+        set
+        start_address=#{start_address},
+        end_address=#{end_address},
+        orderdate=#{orderdate},
+        note=#{note}
+        where orderno=#{orderno}
+    </update>
 
 
 </mapper>

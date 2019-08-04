@@ -66,5 +66,10 @@ return page;
         return customerMapper.queryPersonalInfoByCno(customerNo);
     }
 
+    @Override
+    public void updateInfo(Customer customer) {
+        customerMapper.updateInfo(customer);
+    }
+
 
 }

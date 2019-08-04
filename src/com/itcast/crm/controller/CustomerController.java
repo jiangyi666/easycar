@@ -103,6 +103,19 @@ public class CustomerController {
         customerService.createInfo(customer);
         return "OK";
     }
+
+    /**
+     * 修改已经发布出的一条拼车信息
+     * 根据订单编号orderno
+     * @param customer
+     * @return
+     */
+    @RequestMapping("updateInfo")
+    @ResponseBody
+    public String updateInfo(Customer customer){
+        customerService.updateInfo(customer);
+        return "OK";
+    }
     /*
     @ResponseBody
     @RequestMapping(value = "delete")

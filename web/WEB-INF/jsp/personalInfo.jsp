@@ -69,7 +69,8 @@
                 url: "<%=basePath%>customer/edit.action",
                 data: {"id": id},
                 success: function (data) {
-                    $("#detail_customernoo").val(data.customerno);
+                    $("#detail_customerno").val(data.customerno);
+                    $("#detail_orderno").val(id);
                     $("#detail_customerName").val(data.customername);
                     $("#detail_startAddress").val(data.start_address);
                     $("#detail_endAddress").val(data.end_address)
@@ -81,6 +82,14 @@
                 }
             });
         }
+        //修改已发布的拼车信息
+        function updateInfo() {
+            $.post("<%=basePath%>/customer/updateInfo.action",$("#edit_customer_form").serialize(),function(data){
+                alert("修改信息成功！");
+                window.location.reload();
+            });
+        }
+
 
     </script>
 </head>
@@ -169,7 +178,7 @@
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
                                        data-target="#customerEditDialog"
-                                       onclick="editCustomer(${row.orderno})">查看&修改</a>
+                                       onclick="editCustomer('${row.orderno}')">查看&修改</a>
                                     <a href="#" class="btn btn-danger btn-xs"
                                        onclick="deleteCustomer(${row.customerno})">删除</a>
                                 </td>
@@ -195,11 +204,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">查看详情</h4>
+                <h4 class="modal-title" id="myModalLabel">查看&修改</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="edit_customer_form">
                     <input type="hidden" id="detail_customerno" name="customerno"/>
+                    <input type="hidden" id="detail_orderno" name="orderno"/>
                     <div class="form-group">
                         <label for="detail_customerName" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-10">
@@ -211,21 +221,21 @@
                         <label for="detail_startAddress" class="col-sm-2 control-label">起点</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="detail_startAddress" placeholder="起点"
-                                   readonly name="start_address">
+                                   required name="start_address" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="detail_endAddress" class="col-sm-2 control-label">终点</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="detail_endAddress" placeholder="终点"
-                                   readonly name="end_address">
+                                    name="end_address" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="detail_orderDate" class="col-sm-2 control-label">时间</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="detail_orderDate" placeholder="时间"
-                                   readonly name="orderdate">
+                            <input type="date" class="form-control" id="detail_orderDate" placeholder="时间"
+                                    name="orderdate" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -257,7 +267,7 @@
                         <div class="col-sm-10">
                             <textarea type="" style="resize: none;overflow: hidden" class="form-control"
                                       id="detail_note" placeholder="备注"
-                                      readonly name="note">
+                                      required name="note">
 
                             </textarea>
                         </div>
@@ -265,6 +275,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="updateInfo()">修改</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
