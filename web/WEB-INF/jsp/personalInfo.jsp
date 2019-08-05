@@ -115,7 +115,7 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">快拼网</a>
+            <a class="navbar-brand" href="#">快拼网</a>
         </div>
         <!-- /.navbar-header -->
 

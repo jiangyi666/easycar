@@ -52,6 +52,8 @@
           type="text/css">
     <link href="<%=basePath%>css/boot-crm.css" rel="stylesheet"
           type="text/css">
+    <%--引入页脚--%>
+    <link href="<%=basePath%>css/footer.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -96,7 +98,7 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">快拼网</a>
+            <a class="navbar-brand" href="#">快拼网</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -217,6 +219,16 @@
 
 </div>
 <%--页脚可以写在这里--%>
+<%--页脚--%>
+<div id="footer">
+    <div style="text-align: center">
+        <br>
+        <font color="#f5f5f5" style="font-family: -apple-system" size="2">All Rights Reserved.</font>
+        <font color="#f5f5f5"><span class="glyphicon glyphicon-copyright-mark"></span></font>
+        <font color="#f5f5f5" style="font-family: -apple-system" size="2">Easy Car.2019</font>
+    </div>
+</div>
+<%--页脚结束--%>
 <!-- 客户编辑对话框 -->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
@@ -299,6 +311,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 
