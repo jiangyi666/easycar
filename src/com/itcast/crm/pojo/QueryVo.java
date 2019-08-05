@@ -12,7 +12,7 @@ public class QueryVo {
     //数据库从那一条数据开始查询
     private Integer start;
     //每页显示的条数
-    private Integer rows=5;
+    private Integer rows=8;
 
     public String getStartAddress() {
         return startAddress;

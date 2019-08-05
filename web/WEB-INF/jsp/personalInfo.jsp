@@ -63,7 +63,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        function editCustomer(id) {
+        function editInfo(id) {
             $.ajax({
                 type: "get",
                 url: "<%=basePath%>customer/edit.action",
@@ -88,6 +88,15 @@
                 alert("修改信息成功！");
                 window.location.reload();
             });
+        }
+        //删除已经发布的拼车信息
+        function deleteInfo(orderNo) {
+            if(confirm("该操作将删除一条已发布记录，要继续该操作吗？")){
+                $.post("<%=basePath%>/customer/deleteInfo.action",{"orderNo":orderNo},function (data) {
+                    alert("成功删除该条记录！")
+                    window.location.reload();
+                })
+            }
         }
 
 
@@ -178,9 +187,9 @@
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
                                        data-target="#customerEditDialog"
-                                       onclick="editCustomer('${row.orderno}')">查看&修改</a>
+                                       onclick="editInfo('${row.orderno}')">查看&修改</a>
                                     <a href="#" class="btn btn-danger btn-xs"
-                                       onclick="deleteCustomer(${row.customerno})">删除</a>
+                                       onclick="deleteInfo('${row.orderno}')">删除</a>
                                 </td>
                             </tr>
                         </c:forEach>

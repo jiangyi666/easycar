@@ -15,7 +15,7 @@ public interface CustomerService {
      * @param id
      * @return
      */
-    public Customer queryCustomerById(Long id);
+    public Customer queryCustomerById(String id);
     //创建拼车信息
     public void createInfo(Customer customer);
     //注册一个新用户
@@ -28,4 +28,6 @@ public interface CustomerService {
     List<Customer> queryPersonalInfoByCno(Long customerNo);
     //修改发布的拼车信息(根据orderno来)
     public void updateInfo(Customer customer);
+    //根据订单编号来删除发布的拼车信息
+    public void deleteInfo(String orderNo);
 }

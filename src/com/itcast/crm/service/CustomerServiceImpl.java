@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements  CustomerService{
         // 封装返回的page对象
         Page<Customer> page = new Page<>(total, queryVo.getPage(), queryVo.getRows(), list);
 
-return page;
+        return page;
     }
 
     /**
@@ -36,7 +36,7 @@ return page;
      * @return
      */
     @Override
-    public Customer queryCustomerById(Long id) {
+    public Customer queryCustomerById(String id) {
         return customerMapper.queryCustomerById(id);
     }
 
@@ -69,6 +69,11 @@ return page;
     @Override
     public void updateInfo(Customer customer) {
         customerMapper.updateInfo(customer);
+    }
+
+    @Override
+    public void deleteInfo(String orderNo) {
+        customerMapper.deleteInfo(orderNo);
     }
 
 

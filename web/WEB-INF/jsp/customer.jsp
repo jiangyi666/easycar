@@ -112,7 +112,7 @@
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户设置</a></li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置</a></li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+                    <li><a href="<%=basePath%>/login/userLogin.action"><i class="fa fa-sign-out fa-fw"></i>
                         退出登录</a></li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -197,7 +197,7 @@
                                 <td>
                                     <a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
                                        data-target="#customerEditDialog"
-                                       onclick="editCustomer(${row.orderno})">查看详情</a>
+                                       onclick="editCustomer('${row.orderno}')">查看详情</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -216,6 +216,7 @@
     <!-- /#page-wrapper -->
 
 </div>
+<%--页脚可以写在这里--%>
 <!-- 客户编辑对话框 -->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">

@@ -46,7 +46,7 @@ public class CustomerController {
      */
     @RequestMapping("edit")
     @ResponseBody
-    public Customer queryCustomerById(Long id) {
+    public Customer queryCustomerById(String id) {
         return customerService.queryCustomerById(id);
     }
 
@@ -114,6 +114,19 @@ public class CustomerController {
     @ResponseBody
     public String updateInfo(Customer customer){
         customerService.updateInfo(customer);
+        return "OK";
+    }
+
+    /**
+     * 用来根据订单编号来删除已经发布的拼车信息
+     * @param orderNo
+     * @return
+     */
+
+    @ResponseBody
+    @RequestMapping("deleteInfo")
+    public String deleteInfo(String orderNo){
+        customerService.deleteInfo(orderNo);
         return "OK";
     }
     /*

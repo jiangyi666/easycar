@@ -100,5 +100,10 @@
         where orderno=#{orderno}
     </update>
 
+    <!--根据订单编号来删除已经发布的拼车信息-->
+    <delete id="deleteInfo" parameterType="string">
+        delete from ordermaster where orderno=#{orderNo}
+    </delete>
+
 
 </mapper>
