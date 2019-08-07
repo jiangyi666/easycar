@@ -5,15 +5,15 @@
 <mapper namespace="com.itcast.crm.mapper.CustomerMapper">
     <sql id="customerQueryVo">
 
-            <if test="startAddress != null and startAddress != ''">
-                AND start_address LIKE '%${startAddress}%'
-            </if>
-            <if test="endAddress != null and endAddress != ''">
-                AND end_Address  LIKE '%${endAddress}%'
-            </if>
-            <if test="orderDate != null and orderDate != ''">
-                AND orderdate = #{orderDate}
-            </if>
+        <if test="startAddress != null and startAddress != ''">
+            AND start_address LIKE '%${startAddress}%'
+        </if>
+        <if test="endAddress != null and endAddress != ''">
+            AND end_Address LIKE '%${endAddress}%'
+        </if>
+        <if test="orderDate != null and orderDate != ''">
+            AND orderdate = #{orderDate}
+        </if>
 
     </sql>
 
@@ -25,10 +25,13 @@
         customer,ordermaster
         WHERE
         customer.customerno=ordermaster.customerno
-        <include refid="customerQueryVo" />
+
+        <include refid="customerQueryVo"/>
+        order by orderdate desc
         <if test="start != null">
             LIMIT #{start}, #{rows}
         </if>
+
     </select>
 
     <!-- 根据queryVo查询数据条数 -->
@@ -36,19 +39,19 @@
             resultType="int">
         SELECT count(1) FROM ordermaster
         <where>
-        <if test="startAddress != null and startAddress != ''">
-            AND start_address LIKE '%${startAddress}%'
-        </if>
-        <if test="endAddress != null and endAddress != ''">
-            AND end_Address  LIKE '%${endAddress}%'
-        </if>
-        <if test="orderDate != null and orderDate != ''">
-            AND orderdate = #{orderDate}
-        </if>
+            <if test="startAddress != null and startAddress != ''">
+                AND start_address LIKE '%${startAddress}%'
+            </if>
+            <if test="endAddress != null and endAddress != ''">
+                AND end_Address LIKE '%${endAddress}%'
+            </if>
+            <if test="orderDate != null and orderDate != ''">
+                AND orderdate = #{orderDate}
+            </if>
         </where>
     </select>
     <!--根据订单编号来查询该订单得具体信息-->
-    <select id="queryCustomerById" resultType="com.itcast.crm.pojo.Customer" >
+    <select id="queryCustomerById" resultType="com.itcast.crm.pojo.Customer">
          select customer.customerno,customername,qq,wechat,phone,orderdate,start_address,end_address,note
         from customer,ordermaster
          where ordermaster.orderno=#{id}
@@ -70,7 +73,7 @@
     </insert>
 
     <!--登录验证-->
-    <select id="checkLogin" resultType="com.itcast.crm.pojo.Customer" >
+    <select id="checkLogin" resultType="com.itcast.crm.pojo.Customer">
          select email,password,customername,customerno from customer where email=#{email} and password=#{password}
     </select>
 
@@ -80,13 +83,14 @@
     </select>
 
     <!--根据个人编号来查看个人的所有已近发布信息-->
-    <select id="queryPersonalInfoByCno" resultType="com.itcast.crm.pojo.Customer" >
+    <select id="queryPersonalInfoByCno" resultType="com.itcast.crm.pojo.Customer">
         select customer.customerno,customername,qq,wechat,phone,orderno,orderdate,start_address,end_address,note
         from customer,ordermaster
          where
          customer.customerno=#{customerNo}
          and
          customer.customerno=ordermaster.customerno
+         order by orderdate desc
     </select>
 
     <!--根据订单编号orderno来修改一条拼车信息记录-->
