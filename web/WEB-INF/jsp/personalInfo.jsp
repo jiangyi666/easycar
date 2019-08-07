@@ -133,7 +133,7 @@
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户设置</a></li>
                     <%--<li><a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置</a></li>--%>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
+                    <li><a href="<%=basePath%>/login/userLogin.action"><i class="fa fa-sign-out fa-fw"></i>
                         退出登录</a></li>
                 </ul>
                 <!-- /.dropdown-user -->
