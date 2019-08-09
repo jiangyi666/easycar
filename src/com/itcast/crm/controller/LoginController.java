@@ -2,6 +2,7 @@ package com.itcast.crm.controller;
 
 import com.itcast.crm.pojo.Customer;
 import com.itcast.crm.service.CustomerService;
+import com.itcast.crm.utils.ImageValidatedCodeUtil;
 import com.itcast.crm.utils.JavaMailUtil;
 import com.itcast.crm.utils.MailContents.htmlText;
 import com.itcast.crm.utils.RandomUtil;
@@ -10,11 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 import java.util.Properties;
 
 @Controller
@@ -23,6 +28,12 @@ public class LoginController {
     @Autowired
     CustomerService customerService;
 
+    /**
+     * 用户登录
+     * @param customer
+     * @param request
+     * @return
+     */
     @RequestMapping("login")
     public String checkLogin(Customer customer, HttpServletRequest request){
         Customer ul = customerService.checkLogin(customer);
@@ -59,15 +70,29 @@ public class LoginController {
     {
         return "register";
     }
+
+    /**
+     * 发送邮件验证码
+     * @param email
+     * @param httpSession
+     * @return
+     */
     @RequestMapping("sendEmail")
     @ResponseBody
-    public String sendEmail(String email, HttpSession httpSession){
+    public String sendEmail(String email, HttpSession httpSession,String validatedCode){
+//        如果前端验证码不匹配
+        String vCode = (String) httpSession.getAttribute("validatedCode");
+        if(!validatedCode.toLowerCase().equals(vCode.toLowerCase())){
+            //就提示前端验证码错误！
+            System.out.println("前端验证码错误");
+            return "2";
+        }
         //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
         //如果不存在就会返回null
         String status = customerService.checkEmailIsExisted(email);
         if(status==null){//该邮箱不存在，即允许注册
             //平时测试编码时关闭下面代码，要不然一直发送邮件不好。。。。
-    JavaMailUtil.receiveMailAccount=email;//给用户输入的邮箱发送邮件
+        JavaMailUtil.receiveMailAccount=email;//给用户输入的邮箱发送邮件
         //1.创建参数配置，用来连接邮箱服务器的参数配置
         Properties props = new Properties();
         //开启Debug模式
@@ -102,7 +127,7 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("发送失败!");
-            return "false";
+            return "false";//发送失败，即发送问题或者提供的邮箱 有问题；
         }
             System.out.println("这是要发送的邮箱"+email);
             //String code = RandomUtil.getRandom();/*测试的时候使用，非测试请注释掉*/
@@ -114,6 +139,13 @@ public class LoginController {
             return "0";//该邮箱存在，放回0，提示（不允许注册)
         }
     }
+
+    /**
+     * 用户注册
+     * @param customer
+     * @param httpSession
+     * @return
+     */
     @RequestMapping("register")
     public String register(Customer customer, HttpSession httpSession){
         System.out.println("用户注册的名字是"+customer.getCustomername());
@@ -137,5 +169,27 @@ public class LoginController {
         httpSession.removeAttribute("code");
         //验证失败，再次跳转到登录界面
         return "register";
+    }
+
+    /**
+     * 获得前端图片验证码
+     */
+    @RequestMapping("getValidatedCode")
+    public void getValidatedCode(HttpServletResponse response,HttpSession session)throws Exception{
+        //利用图片工具生成图片
+        //第一个参数是生成的验证码，第二个参数是生成的图片
+        Object[] objs = ImageValidatedCodeUtil.createImage();
+        //将验证码存入Session
+        session.setAttribute("validatedCode",objs[0]);
+        //禁止缓存
+        response.setHeader("Prama","no-cache");
+        response.setHeader("Coche-Control","no-cache");
+        response.setDateHeader("Expires",0);
+        response.setContentType("image/png");
+        //将图片输出给浏览器
+        BufferedImage image = (BufferedImage) objs[1];
+        OutputStream os = response.getOutputStream();
+        ImageIO.write(image, "png", os);
+        os.close();
     }
 }
