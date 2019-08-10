@@ -25,6 +25,20 @@
     <script src="<%=basePath%>js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
+    <%--验证--%>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script>
+        $.validator.setDefaults({
+            submitHandler: function(form) {
+               form.submit();
+            }
+        });
+        $().ready(function() {
+            $("#commentForm").validate();
+        });
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#loginBox").fadeToggle(1000);
@@ -45,6 +59,9 @@
         .toRegister:hover{
            color: red;
         }
+        label.error{
+            color:indianred;
+        }
     </style>
 </head>
 <body style="background-color: #f3f3f4;">
@@ -53,7 +70,7 @@
         <div class="col-md-4 column">
         </div>
         <div class="col-md-4 column">
-            <form class="form-horizontal" role="form" action="<%=basePath%>login/login.action" method="post">
+            <form class="form-horizontal" id="commentForm" role="form" action="<%=basePath%>login/login.action" method="post">
                 <div style="text-align: center" class="col-sm-10">
                     <h3><i><b>快拼网登录</b></i></h3>
                 </div>

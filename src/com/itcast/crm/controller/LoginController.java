@@ -85,6 +85,7 @@ public class LoginController {
         if(!validatedCode.toLowerCase().equals(vCode.toLowerCase())){
             //就提示前端验证码错误！
             System.out.println("前端验证码错误");
+            httpSession.removeAttribute("validatedCode");//移除验证码
             return "2";
         }
         //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
