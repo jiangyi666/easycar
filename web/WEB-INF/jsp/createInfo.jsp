@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
@@ -27,10 +28,16 @@
     <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript">
         function createInfo() {
-            $.post("<%=basePath%>customer/createInfo.action", $("#create_info_form").serialize(), function (data) {
-                alert("发布拼车信息成功！");
-                window.location.href="<%=basePath%>customer/list.action";
-            });
+            <%--由于jquery的validated验证无法在ajax提价中使用 --%>
+            <%-- 因为在ajax中required无法使用--%>
+            if($("#create_startAddress").val()&&$("#create_endAddress").val()&&$("#create_orderDate").val()){
+                $.post("<%=basePath%>customer/createInfo.action", $("#create_info_form").serialize(), function (data) {
+                    alert("发布拼车信息成功！");
+                    window.location.href = "<%=basePath%>customer/list.action";
+                });
+            }else {
+                alert("请填写相关信息！")
+            }
         }
     </script>
 </head>
@@ -45,28 +52,28 @@
         <div class="col-md-2 column">
         </div>
         <div class="col-md-6 column">
-            <form class="form-horizontal" id="create_info_form">
+            <form class="form-horizontal" role="form" id="create_info_form">
                 <%--<input type="hidden" id="create_customerno" name="customerno" value="${customerno}"/>--%>
                 <%--<input type="hidden" id="create_orderno" name="orderno" value="${orderno}"/>--%>
                 <div class="form-group">
                     <label for="create_startAddress" class="col-sm-2 control-label">起点</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="create_startAddress" placeholder="起点"
-                             required  name="start_address">
+                             required  name="start_address"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="create_endAddress" class="col-sm-2 control-label">终点</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="create_endAddress" placeholder="终点"
-                               required  name="end_address">
+                               required  name="end_address"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="create_orderDate" class="col-sm-2 control-label">时间</label>
                     <div class="col-sm-10">
                         <input type="date" class="form-control" id="create_orderDate" placeholder="时间"
-                               required   name="orderdate">
+                               required   name="orderdate"/>
                     </div>
                 </div>
                 <div class="form-group">

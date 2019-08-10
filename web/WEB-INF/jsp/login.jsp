@@ -25,7 +25,7 @@
     <script src="<%=basePath%>js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
-    <%--验证--%>
+    <%--Jquery验证--%>
     <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
     <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
@@ -90,9 +90,15 @@
                         <button type="submit" class="btn btn-success btn-block">登录</button>
                     </div>
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-10" align="center">
+                    <%--去注册界面--%>
                     <a href="<%=basePath%>login/userRegister.action" class="toRegister">
                         <i>还没有账号，去注册</i>
+                    </a>
+                        <span class="glyphicon glyphicon-option-vertical"></span>
+                    <%--去找回密码--%>
+                    <a href="<%=basePath%>/login/toFindPswd.action" class="toRegister" >
+                        <i>忘记密码?</i>
                     </a>
                 </div>
             </form>
