@@ -109,5 +109,11 @@
         delete from ordermaster where orderno=#{orderNo}
     </delete>
 
+    <!--根据唯一的邮箱号来修改密码-->
+    <update id="updatePassword" parameterType="com.itcast.crm.pojo.Customer">
+        update customer set password=#{password}
+        where email=#{email}
+    </update>
+
 
 </mapper>

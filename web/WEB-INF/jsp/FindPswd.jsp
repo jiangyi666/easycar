@@ -16,7 +16,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="快拼网找回密码验证邮箱">
     <meta name="author" content="">
     <title>找回密码</title>
     <!-- jQuery -->
@@ -27,6 +27,20 @@
     <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
     <%--引入页脚--%>
     <link href="<%=basePath%>css/footer.css" rel="stylesheet" type="text/css">
+    <%--Jquery验证--%>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script>
+        $.validator.setDefaults({
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+        $().ready(function() {
+            $("#commentForm").validate();
+        });
+    </script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#loginBox").fadeToggle(1000);
@@ -91,6 +105,17 @@
 
         }
     </script>
+    <%--如果提交请求即提交表单后邮箱验证码错误，就会返回codeStatus的值--%>
+    <script type="text/javascript">
+        if('${codeStatus}'!=''){
+            alert('${codeStatus}')
+        }
+    </script>
+    <style type="text/css">
+        label.error{
+            color:indianred;
+        }
+    </style>
 </head>
 <body style="background-color: #f3f3f4;">
 <div class="container" id="loginBox" hidden>
@@ -98,7 +123,7 @@
         <div class="col-md-4 column">
         </div>
         <div class="col-md-4 column">
-            <form class="form-horizontal" role="form" action="<%=basePath%>login/register.action" method="post">
+            <form class="form-horizontal" role="form" id="commentForm" action="<%=basePath%>login/toResetPswd.action" method="post">
                 <div style="text-align: center" class="col-sm-10">
                     <h3><i><b>快拼网找回密码</b></i></h3>
                 </div>
@@ -116,7 +141,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <input type="text" name="email" class="form-control"  id="inputValidatedCode" autofocus required placeholder="请填写验证码">
+                        <input type="text" name="inputValidatedCode" class="form-control"  id="inputValidatedCode" autofocus required placeholder="请填写验证码">
                     </div>
                 </div>
                 <div class="form-group">

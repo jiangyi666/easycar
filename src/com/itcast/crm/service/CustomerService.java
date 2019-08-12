@@ -30,4 +30,6 @@ public interface CustomerService {
     public void updateInfo(Customer customer);
     //根据订单编号来删除发布的拼车信息
     public void deleteInfo(String orderNo);
+    //根据唯一的邮箱号来修改密码
+    public void updatePassword(Customer customer);
 }

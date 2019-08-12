@@ -40,7 +40,7 @@ public class Customer {
         this.code = code;
     }
 
-    private String code;
+    private String code;//邮箱验证码
 
     public String getNote() {
         return note;

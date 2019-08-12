@@ -76,5 +76,10 @@ public class CustomerServiceImpl implements  CustomerService{
         customerMapper.deleteInfo(orderNo);
     }
 
+    @Override
+    public void updatePassword(Customer customer) {
+        customerMapper.updatePassword(customer);
+    }
+
 
 }

@@ -9,6 +9,7 @@ import com.itcast.crm.utils.RandomUtil;
 import com.itcast.crm.utils.SendEmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -133,12 +134,12 @@ public class LoginController {
         }
         //移除验证码
         httpSession.removeAttribute("code");
-        //验证失败，再次跳转到登录界面
+        //验证失败，再次跳转到注册界面
         return "register";
     }
 
     /**
-     * 跳转到找回密码界面
+     * 跳转到找回密码界面（主要为验证)
      * @return
      */
     @RequestMapping("toFindPswd")
@@ -171,11 +172,47 @@ public class LoginController {
             return "0";//该邮箱不存在不允许发送邮箱验证码
         } else {
             //否则该邮箱存在，发送邮箱验证
-            String code = RandomUtil.getRandom();//获得随机生成的验证码
-            String html = htmlText.sendReturnPswdHtml(code);//生成找回密码的时候的html文件
+            String code = RandomUtil.getRandom();//获得随机生成的邮箱验证码
+            System.out.println("邮箱验证码:"+code);
+            //String html = htmlText.sendReturnPswdHtml(code);//生成找回密码的时候的html文件
             httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
-            return SendEmailUtil.sendEmail(email,html);
+            //return SendEmailUtil.sendEmail(email,html);
+            return "1";
         }
+    }
+
+    /**
+     * 跳转到重置密码界面
+     * @param model 用来给前端返回数据
+     * @param httpSession 用来拿到保存的系统生成的邮箱验证码
+     * @return
+     */
+    @RequestMapping("toResetPswd")
+    public String toResetPswd(Customer customer, Model model, HttpSession httpSession){
+        String emailCode = (String) httpSession.getAttribute("code");//从httpSession中获得code的值，邮箱验证码
+        if(customer.getCode().toLowerCase().equals(emailCode.toLowerCase()))
+        {
+            //前端提交的邮箱验证码正确，就跳转到密码重置
+            //先把需要重置密码的用户的邮箱存放起来
+            System.out.println("用户提交的邮箱:"+customer.getEmail());
+            model.addAttribute("emailOfResetPswd",customer.getEmail());
+            return "resetPswd";
+        }else {
+            //如果提交的邮箱验证码错误，就再次跳转到邮箱验证界面
+            model.addAttribute("codeStatus","邮箱验证码错误！");
+            return "FindPswd";
+        }
+
+    }
+
+    /**
+     * 重置密码
+     * @return
+     */
+    @RequestMapping("resetPswd")
+    public String resetPswd(Customer customer ){
+        customerService.updatePassword(customer);
+        return "login";
     }
 
     /**
