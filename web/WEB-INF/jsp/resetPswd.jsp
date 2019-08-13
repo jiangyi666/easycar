@@ -35,13 +35,6 @@
 
         })
     </script>
-    <script type="text/javascript">
-        var msg="${loginMsg}";
-        if(typeof msg!=null&&msg!="")
-        {
-            alert(msg)
-        }
-    </script>
     <style type="text/css">
         label.error{
             color:indianred;

@@ -49,6 +49,7 @@
                         success: function (data) {
                             if (data == 2) {
                                 alert("验证码错误!")
+                                $("#imageValidateCode").attr("src","<%=basePath%>/login/getValidatedCode.action?flag=" + Math.random())
                             } else if (data == 1) {//data为1表示可以注册
                                 alert("已成功发送验证码到指定邮箱！");
                                 //点击发送验证码按钮后，按钮变成灰色不可以点击60秒
@@ -140,7 +141,7 @@
                 <div class="form-group">
                     <div class="col-sm-10">
                         <%--图片前端验证码--%>
-                        <img src="<%=basePath%>/login/getValidatedCode.action" align="middle" alt="看不清，点击更换。"
+                        <img id="imageValidateCode" src="<%=basePath%>/login/getValidatedCode.action" align="middle" alt="看不清，点击更换。"
                                  onclick="reloadImage(this)">
                     </div>
                 </div>

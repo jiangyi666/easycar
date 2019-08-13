@@ -87,22 +87,27 @@ public class LoginController {
     public String sendEmail(String email, HttpSession httpSession, String validatedCode) {
 //        如果前端验证码不匹配
         String vCode = (String) httpSession.getAttribute("validatedCode");
-        if (!validatedCode.toLowerCase().equals(vCode.toLowerCase())) {
-            //就提示前端验证码错误！
-            httpSession.removeAttribute("validatedCode");//移除验证码
-            return "2";
+        if(vCode!=null){
+            if (!validatedCode.toLowerCase().equals(vCode.toLowerCase())) {
+                //就提示前端验证码错误！
+                httpSession.removeAttribute("validatedCode");//移除验证码
+                return "2";
+            }
+            //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
+            //如果不存在就会返回null
+            String status = customerService.checkEmailIsExisted(email);
+            if (status == null) {//该邮箱不存在，即允许注册
+                String code = RandomUtil.getRandom();//获得随机生成的验证码
+                //String html = htmlText.sendRegisterHtml(code);//生成注册的时候的html文件
+                httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
+                //return SendEmailUtil.sendEmail(email,html);
+                return "1";
+            } else {
+                return "0";//该邮箱存在，返回0，提示该邮箱已近存在（不允许注册)
+            }
         }
-        //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
-        //如果不存在就会返回null
-        String status = customerService.checkEmailIsExisted(email);
-        if (status == null) {//该邮箱不存在，即允许注册
-            String code = RandomUtil.getRandom();//获得随机生成的验证码
-            String html = htmlText.sendRegisterHtml(code);//生成注册的时候的html文件
-            httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
-            return SendEmailUtil.sendEmail(email,html);
-        } else {
-            return "0";//该邮箱存在，返回0，提示该邮箱已近存在（不允许注册)
-        }
+        return "2";
+
     }
 
 
@@ -118,7 +123,7 @@ public class LoginController {
     public String register(Customer customer, HttpSession httpSession) {
         System.out.println("用户注册的名字是" + customer.getCustomername());
         String code = (String) httpSession.getAttribute("code");//从httpSession中获得code的值
-        System.out.println(code);
+        System.out.println("用户注册的时候提交的邮箱验证码"+code);
         if (code != null) {
             //获取页面提交的验证码
             String inputCode = customer.getCode();
@@ -128,12 +133,13 @@ public class LoginController {
                 //向数据库中添加用户的注册信息
                 customerService.createNewUser(customer);
                 //验证成功，跳转到登录界面
+                //验证成功后就可以移除验证码
+                httpSession.removeAttribute("validatedCode");
+                httpSession.removeAttribute("code");
                 return "login";
             }
 
         }
-        //移除验证码
-        httpSession.removeAttribute("code");
         //验证失败，再次跳转到注册界面
         return "register";
     }
@@ -160,25 +166,30 @@ public class LoginController {
     public String sendReturnPswdEmail(String email,HttpSession httpSession,String validatedCode){
         // 如果前端验证码不匹配
         String vCode = (String) httpSession.getAttribute("validatedCode");
-        if (!validatedCode.toLowerCase().equals(vCode.toLowerCase())) {
-            //就提示前端验证码错误！
-            httpSession.removeAttribute("validatedCode");//移除验证码
-            return "2";//2就提示前端验证码错误！
+        if(vCode!=null){
+            if (!validatedCode.toLowerCase().equals(vCode.toLowerCase())) {
+                //就提示前端验证码错误！
+                httpSession.removeAttribute("validatedCode");//移除验证码
+                //这个验证码不能移除，如果移除了，如果用户还是输入之前那个验证码，上面拿vCode就会报空指针异常
+                return "2";//2就提示前端验证码错误！
+            }
+            //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
+            //如果不存在就会返回null
+            String status = customerService.checkEmailIsExisted(email);
+            if (status == null) {//该邮箱不存在，不允许发送邮箱验证码
+                return "0";//该邮箱不存在不允许发送邮箱验证码
+            } else {
+                //否则该邮箱存在，发送邮箱验证
+                String code = RandomUtil.getRandom();//获得随机生成的邮箱验证码
+                System.out.println("邮箱验证码:"+code);
+                //String html = htmlText.sendReturnPswdHtml(code);//生成找回密码的时候的html文件
+                httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
+                //return SendEmailUtil.sendEmail(email,html);
+                return "1";//测试代码，发布的时候去掉
+            }
         }
-        //检验邮箱是否已经存在（即已经注册过），如果存在就会返回客户编号
-        //如果不存在就会返回null
-        String status = customerService.checkEmailIsExisted(email);
-        if (status == null) {//该邮箱不存在，不允许发送邮箱验证码
-            return "0";//该邮箱不存在不允许发送邮箱验证码
-        } else {
-            //否则该邮箱存在，发送邮箱验证
-            String code = RandomUtil.getRandom();//获得随机生成的邮箱验证码
-            System.out.println("邮箱验证码:"+code);
-            //String html = htmlText.sendReturnPswdHtml(code);//生成找回密码的时候的html文件
-            httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
-            //return SendEmailUtil.sendEmail(email,html);
-            return "1";
-        }
+        return "2";
+
     }
 
     /**
@@ -190,18 +201,24 @@ public class LoginController {
     @RequestMapping("toResetPswd")
     public String toResetPswd(Customer customer, Model model, HttpSession httpSession){
         String emailCode = (String) httpSession.getAttribute("code");//从httpSession中获得code的值，邮箱验证码
-        if(customer.getCode().toLowerCase().equals(emailCode.toLowerCase()))
-        {
-            //前端提交的邮箱验证码正确，就跳转到密码重置
-            //先把需要重置密码的用户的邮箱存放起来
-            System.out.println("用户提交的邮箱:"+customer.getEmail());
-            model.addAttribute("emailOfResetPswd",customer.getEmail());
-            return "resetPswd";
-        }else {
-            //如果提交的邮箱验证码错误，就再次跳转到邮箱验证界面
-            model.addAttribute("codeStatus","邮箱验证码错误！");
-            return "FindPswd";
+        if(emailCode!=null){
+            if(customer.getCode().toLowerCase().equals(emailCode.toLowerCase()))
+            {
+                //前端提交的邮箱验证码正确，就跳转到密码重置
+                //先把需要重置密码的用户的邮箱存放起来
+                System.out.println("用户提交的邮箱:"+customer.getEmail());
+                model.addAttribute("emailOfResetPswd",customer.getEmail());
+                httpSession.removeAttribute("code");//成功就移除
+                httpSession.removeAttribute("validatedCode");
+                return "resetPswd";
+            }else {
+                //如果提交的邮箱验证码错误，就再次跳转到邮箱验证界面
+                model.addAttribute("codeStatus","邮箱验证码错误！");
+                return "FindPswd";
+            }
         }
+        return "FindPswd";
+
 
     }
 
