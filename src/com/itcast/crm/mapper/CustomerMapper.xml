@@ -129,5 +129,11 @@
         customerno=#{customerNo}
     </select>
 
+    <!--用来插入一条反馈记录-->
+    <insert id="createFeedBack" parameterType="com.itcast.crm.pojo.FeedBack">
+        insert into feedback(customerno,details)
+        values (#{customerno},#{details})
+    </insert>
+
 
 </mapper>

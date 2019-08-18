@@ -1,6 +1,7 @@
 package com.itcast.crm.mapper;
 
 import com.itcast.crm.pojo.Customer;
+import com.itcast.crm.pojo.FeedBack;
 import com.itcast.crm.pojo.QueryVo;
 
 import java.util.List;
@@ -33,4 +34,6 @@ public interface CustomerMapper {
     public Customer getPrivateInfo(long customerNo);
     //根据客户（用户）编号来修改用户的个人信息（手机号，微信号，qq号)
     public void updatePrivateInfo(Customer customer);
+    //用来反馈
+    public void createFeedBack(FeedBack feedBack);
 }

@@ -3,6 +3,7 @@ package com.itcast.crm.service;
 import com.itcast.common.utils.Page;
 import com.itcast.crm.mapper.CustomerMapper;
 import com.itcast.crm.pojo.Customer;
+import com.itcast.crm.pojo.FeedBack;
 import com.itcast.crm.pojo.QueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,11 @@ public class CustomerServiceImpl implements  CustomerService{
     @Override
     public Customer getPrivateInfo(long customerNo) {
         return customerMapper.getPrivateInfo(customerNo);
+    }
+
+    @Override
+    public void createFeedBack(FeedBack feedBack) {
+        customerMapper.createFeedBack(feedBack);
     }
 
 

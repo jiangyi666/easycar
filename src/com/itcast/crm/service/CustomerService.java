@@ -2,6 +2,7 @@ package com.itcast.crm.service;
 
 import com.itcast.common.utils.Page;
 import com.itcast.crm.pojo.Customer;
+import com.itcast.crm.pojo.FeedBack;
 import com.itcast.crm.pojo.QueryVo;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface CustomerService {
     //根据用户编号来获取用户的个人信息
     //由于登录成功以后用户名保存在session中，故只要获得qq号码，手机号码，微信号码就可以，邮箱
     public Customer getPrivateInfo(long customerNo);
+    //用来反馈
+    public void createFeedBack(FeedBack feedBack);
 }

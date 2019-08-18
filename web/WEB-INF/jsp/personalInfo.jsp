@@ -147,9 +147,11 @@
                 <ul class="nav" id="side-menu">
 
                     <li><a href="<%=basePath%>/customer/list.action"><i
-                            class="fa fa-edit fa-fw"></i>查询拼车</a></li>
+                            class="fa fa-car fa-fw"></i>查询拼车</a></li>
                     <li><a href="<%=basePath%>/customer/toPersonInfo.action"><i
                             class="fa fa-dashboard fa-fw" class="active"></i> 我的发布</a></li>
+                    <li><a href="<%=basePath%>/feedBack/toFeedBack.action"><i
+                            class="fa fa-question-circle  fa-fw" ></i> 反馈</a></li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
