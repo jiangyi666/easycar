@@ -98,10 +98,9 @@ public class LoginController {
             String status = customerService.checkEmailIsExisted(email);
             if (status == null) {//该邮箱不存在，即允许注册
                 String code = RandomUtil.getRandom();//获得随机生成的验证码
-                //String html = htmlText.sendRegisterHtml(code);//生成注册的时候的html文件
+                String html = htmlText.sendRegisterHtml(code);//生成注册的时候的html文件
                 httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
-                //return SendEmailUtil.sendEmail(email,html);
-                return "1";
+                return SendEmailUtil.sendEmail(email,html);
             } else {
                 return "0";//该邮箱存在，返回0，提示该邮箱已近存在（不允许注册)
             }
@@ -182,10 +181,9 @@ public class LoginController {
                 //否则该邮箱存在，发送邮箱验证
                 String code = RandomUtil.getRandom();//获得随机生成的邮箱验证码
                 System.out.println("邮箱验证码:"+code);
-                //String html = htmlText.sendReturnPswdHtml(code);//生成找回密码的时候的html文件
+                String html = htmlText.sendReturnPswdHtml(code);//生成找回密码的时候的html文件
                 httpSession.setAttribute("code", code);//将验证码存放在httpSession域中
-                //return SendEmailUtil.sendEmail(email,html);
-                return "1";//测试代码，发布的时候去掉
+                return SendEmailUtil.sendEmail(email,html);
             }
         }
         return "2";

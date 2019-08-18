@@ -32,4 +32,9 @@ public interface CustomerService {
     public void deleteInfo(String orderNo);
     //根据唯一的邮箱号来修改密码
     public void updatePassword(Customer customer);
+    //根据客户（用户）编号来修改用户的个人信息（手机号，微信号，qq号)
+    public void updatePrivateInfo(Customer customer);
+    //根据用户编号来获取用户的个人信息
+    //由于登录成功以后用户名保存在session中，故只要获得qq号码，手机号码，微信号码就可以，邮箱
+    public Customer getPrivateInfo(long customerNo);
 }

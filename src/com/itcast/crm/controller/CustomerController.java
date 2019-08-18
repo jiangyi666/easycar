@@ -4,6 +4,7 @@ import com.itcast.common.utils.Page;
 import com.itcast.crm.pojo.Customer;
 import com.itcast.crm.pojo.QueryVo;
 import com.itcast.crm.service.CustomerService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sun.java2d.pipe.SolidTextRenderer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -129,11 +131,31 @@ public class CustomerController {
         customerService.deleteInfo(orderNo);
         return "OK";
     }
-    /*
+
+    /**
+     * 根据登录成功后保存在session域中的用户编号
+     * 来获取用户的个人信息
+     * @return
+     */
+
+    @RequestMapping("getPrivateInfo")
+    public String getPrivateInfo(HttpSession httpSession, Model model){
+        long customerNo = (long)httpSession.getAttribute("customerNo");
+        Customer privateInfo = customerService.getPrivateInfo(customerNo);
+        model.addAttribute("customerNo",customerNo);
+        model.addAttribute("privateInfo",privateInfo);
+        return "privateInfo";
+    }
+
+    /**
+     * 根据用户编号来修改用户的个人信息
+     * @param customer
+     * @return
+     */
+    @RequestMapping("updatePrivateInfo")
     @ResponseBody
-    @RequestMapping(value = "delete")
-    public String deleteCustomerById(Long id){
-        customerService.deleteCustomerById(id);
-        return "ok";
-    }*/
+    public String updatePrivateInfo(Customer customer){
+        customerService.updatePrivateInfo(customer);
+        return "OK";
+    }
 }

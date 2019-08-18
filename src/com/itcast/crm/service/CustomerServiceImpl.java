@@ -81,5 +81,15 @@ public class CustomerServiceImpl implements  CustomerService{
         customerMapper.updatePassword(customer);
     }
 
+    @Override
+    public void updatePrivateInfo(Customer customer) {
+        customerMapper.updatePrivateInfo(customer);
+    }
+
+    @Override
+    public Customer getPrivateInfo(long customerNo) {
+        return customerMapper.getPrivateInfo(customerNo);
+    }
+
 
 }

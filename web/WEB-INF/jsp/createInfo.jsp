@@ -36,7 +36,7 @@
                     window.location.href = "<%=basePath%>customer/list.action";
                 });
             }else {
-                alert("请填写相关信息！")
+                alert("请填写相关信息")
             }
         }
     </script>
@@ -45,7 +45,7 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <h1><i><b>快拼网</b></i></h1>
+            <h1><i><b>快拼网发布</b></i></h1>
         </div>
     </div>
     <div class="row clearfix">

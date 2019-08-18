@@ -115,5 +115,19 @@
         where email=#{email}
     </update>
 
+    <!--根据客户（用户）编号来修改用户的个人信息（手机号，微信号，qq号)-->
+    <update id="updatePrivateInfo" parameterType="com.itcast.crm.pojo.Customer">
+        update customer set phone=#{phone},wechat=#{wechat},qq=#{qq}
+        where
+        customerno=#{customerno}
+    </update>
+
+    <!-- //由于登录成功以后用户名保存在session中，故只要获得qq号码，手机号码，微信号码就可以，邮箱-->
+    <select id="getPrivateInfo" parameterType="long" resultType="com.itcast.crm.pojo.Customer">
+        select qq,phone,wechat,email from customer
+        where
+        customerno=#{customerNo}
+    </select>
+
 
 </mapper>
