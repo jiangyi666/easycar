@@ -26,20 +26,7 @@
     <script src="<%=basePath%>js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript">
-        function createInfo() {
-            <%--由于jquery的validated验证无法在ajax提价中使用 --%>
-            <%-- 因为在ajax中required无法使用--%>
-            if($("#create_startAddress").val()&&$("#create_endAddress").val()&&$("#create_orderDate").val()){
-                $.post("<%=basePath%>customer/createInfo.action", $("#create_info_form").serialize(), function (data) {
-                    alert("发布拼车信息成功！");
-                    window.location.href = "<%=basePath%>customer/list.action";
-                });
-            }else {
-                alert("请填写相关信息")
-            }
-        }
-    </script>
+
 </head>
 <body>
 <div class="container">
@@ -100,5 +87,19 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function createInfo() {
+        <%--由于jquery的validated验证无法在ajax提价中使用 --%>
+        <%-- 因为在ajax中required无法使用--%>
+        if($("#create_startAddress").val()&&$("#create_endAddress").val()&&$("#create_orderDate").val()){
+            $.post("<%=basePath%>customer/createInfo.action", $("#create_info_form").serialize(), function (data) {
+                alert("发布拼车信息成功！");
+                window.location.href = "<%=basePath%>customer/list.action";
+            });
+        }else {
+            alert("请填写相关信息")
+        }
+    }
+</script>
 </body>
 </html>

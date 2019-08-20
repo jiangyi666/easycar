@@ -61,27 +61,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-        function editCustomer(id) {
-            $.ajax({
-                type: "get",
-                url: "<%=basePath%>customer/edit.action",
-                data: {"id": id},
-                success: function (data) {
-                    $("#detail_customernoo").val(data.customerno);
-                    $("#detail_customerName").val(data.customername);
-                    $("#detail_startAddress").val(data.start_address);
-                    $("#detail_endAddress").val(data.end_address)
-                    $("#detail_orderDate").val(data.orderdate)
-                    $("#detail_phone").val(data.phone)
-                    $("#detail_qq").val(data.qq);
-                    $("#detail_wechat").val(data.wechat);
-                    $("#detail_note").val(data.note);
-                }
-            });
-        }
-
-    </script>
 </head>
 
 <body>
@@ -300,7 +279,7 @@
                     <div class="form-group">
                         <label for="detail_note" class="col-sm-2 control-label">备注</label>
                         <div class="col-sm-10">
-                            <textarea type="" style="resize: none;overflow: hidden" class="form-control"
+                            <textarea type="" style="resize: none;" class="form-control"
                                       id="detail_note" placeholder="备注"
                                       readonly name="note"/>
                         </div>
@@ -313,11 +292,26 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function editCustomer(id) {
+        $.ajax({
+            type: "get",
+            url: "<%=basePath%>customer/edit.action",
+            data: {"id": id},
+            success: function (data) {
+                $("#detail_customernoo").val(data.customerno);
+                $("#detail_customerName").val(data.customername);
+                $("#detail_startAddress").val(data.start_address);
+                $("#detail_endAddress").val(data.end_address)
+                $("#detail_orderDate").val(data.orderdate)
+                $("#detail_phone").val(data.phone)
+                $("#detail_qq").val(data.qq);
+                $("#detail_wechat").val(data.wechat);
+                $("#detail_note").val(data.note);
+            }
+        });
+    }
 
-
-
-
-
+</script>
 </body>
-
 </html>

@@ -29,8 +29,12 @@ public class SendEmailUtil {
         props.setProperty("'mail.smtp.auth", "true");
         //设置邮件服务器的主机名
         props.setProperty("mail.host", JavaMailUtil.emailSMTPHost);
+        //设置使用的端口
+        props.setProperty("mail.smtp.port","465");
         //发送邮件协议名称
         props.setProperty("mail.transport.protocol", "smtp");
+        //允许ssl
+        props.setProperty("mail.smtp.ssl.enable","true");
         //2.根据配置创建会话对象用来和邮件服务器交互
         Session session = Session.getInstance(props);
         //设置debug，可以查看详细的发送log

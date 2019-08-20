@@ -27,71 +27,7 @@
     <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
     <%--引入页脚--%>
     <link href="<%=basePath%>css/footer.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#loginBox").fadeToggle(1000);
 
-        })
-        function sendEmail() {
-            if(!$("#inputValidatedCode").val()){//如果验证码为空
-                alert("请填写验证码！")
-            }
-            else {
-                if ($("#inputEmail").val() && /@/.test($("#inputEmail").val()))//表明邮箱不为空且格式正确
-                {
-                    $.ajax({
-                        type: "POST",
-                        url: "<%=basePath%>login/sendEmail.action?random" + Math.random(),
-                        data: {
-                            email: $("#inputEmail").val(),
-                            validatedCode: $("#inputValidatedCode").val(),
-                        },
-                        success: function (data) {
-                            if (data == 2) {
-                                alert("验证码错误!")
-                                $("#imageValidateCode").attr("src","<%=basePath%>/login/getValidatedCode.action?flag=" + Math.random())
-                            } else if (data == 1) {//data为1表示可以注册
-                                alert("已成功发送验证码到指定邮箱！");
-                                //点击发送验证码按钮后，按钮变成灰色不可以点击60秒
-                                $("#getCode").attr("disabled", true);
-                                //60秒后恢复点击，可以从新发送验证码
-                                setTimeout("$(\"#getCode\").removeAttr(\"disabled\")", 1000 * 60);
-                                //显示60秒倒计时
-                                $("#tipReSend").show();
-                                timeCount();
-                            } else if (data == 0) {//data 为0或者false表明不可以注册
-                                alert("该邮箱已经被注册过！")
-                            } else {
-                                alert("该邮箱不存在或者被拒绝！")
-                            }
-                        },
-                    })
-                } else if (!/@/.test($("#inputEmail").val()) && $("#inputEmail").val()) {//邮箱已经填写但是格式不正确
-                    alert("请填写正确的邮箱地址！")
-                } else {//邮箱没有填写
-                    alert("失败！请填写邮箱！");
-                }
-            }
-
-        }
-        var c=60;
-        var t;
-        function timeCount() {
-            document.getElementById("time").innerHTML=c;
-            c-=1;
-            t=setTimeout("timeCount()",1000);
-            if(c==0){
-                c=60;
-                clearTimeout(t);
-            }
-        }
-    </script>
-    <script type="text/javascript">
-        function reloadImage(t) {
-            t.src = "<%=basePath%>/login/getValidatedCode.action?flag=" + Math.random();//起到一种刷新的效果
-
-        }
-    </script>
 </head>
 <body style="background-color: #f3f3f4;">
 <div class="container" id="loginBox" hidden>
@@ -147,7 +83,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <input type="text" name="email" class="form-control"  id="inputValidatedCode" autofocus required placeholder="请填写验证码">
+                        <input type="text" name="" class="form-control"  id="inputValidatedCode" autofocus required placeholder="请填写验证码">
                     </div>
                 </div>
                 <div class="form-group">
@@ -175,5 +111,76 @@
     </div>
 </div>
 <%--页脚可以写在这里--%>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#loginBox").fadeToggle(1000);
+
+    })
+    function sendEmail() {
+        if(!$("#inputValidatedCode").val()){//如果验证码为空
+            alert("请填写验证码！")
+        }
+        else {
+            if ($("#inputEmail").val() && /@/.test($("#inputEmail").val()))//表明邮箱不为空且格式正确
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "<%=basePath%>login/sendEmail.action?random" + Math.random(),
+                    data: {
+                        email: $("#inputEmail").val(),
+                        validatedCode: $("#inputValidatedCode").val(),
+                    },
+                    success: function (data) {
+                        if (data == 2) {
+                            alert("验证码错误!")
+                            $("#imageValidateCode").attr("src","<%=basePath%>/login/getValidatedCode.action?flag=" + Math.random())
+                        } else if (data == 1) {//data为1表示可以注册
+                            alert("已成功发送验证码到指定邮箱！");
+                            //点击发送验证码按钮后，按钮变成灰色不可以点击60秒
+                            $("#getCode").attr("disabled", true);
+                            //60秒后恢复点击，可以从新发送验证码
+                            setTimeout("$(\"#getCode\").removeAttr(\"disabled\")", 1000 * 60);
+                            //显示60秒倒计时
+                            $("#tipReSend").show();
+                            timeCount();
+                        } else if (data == 0) {//data 为0或者false表明不可以注册
+                            alert("该邮箱已经被注册过！")
+                        } else {
+                            alert("该邮箱不存在或者被拒绝！")
+                        }
+                    },
+                })
+            } else if (!/@/.test($("#inputEmail").val()) && $("#inputEmail").val()) {//邮箱已经填写但是格式不正确
+                alert("请填写正确的邮箱地址！")
+            } else {//邮箱没有填写
+                alert("失败！请填写邮箱！");
+            }
+        }
+
+    }
+    var c=60;
+    var t;
+    function timeCount() {
+        document.getElementById("time").innerHTML=c;
+        c-=1;
+        t=setTimeout("timeCount()",1000);
+        if(c==0){
+            c=60;
+            clearTimeout(t);
+        }
+    }
+</script>
+<%--如果提交请求即提交表单后邮箱验证码错误，就会返回codeStatus的值--%>
+<script type="text/javascript">
+    if('${RegisterEmailCodeStatus}'!=''){
+        alert('${RegisterEmailCodeStatus}')
+    }
+</script>
+<script type="text/javascript">
+    function reloadImage(t) {
+        t.src = "<%=basePath%>/login/getValidatedCode.action?flag=" + Math.random();//起到一种刷新的效果
+
+    }
+</script>
 </body>
 </html>

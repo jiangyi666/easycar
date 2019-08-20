@@ -64,45 +64,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-        function editInfo(id) {
-            $.ajax({
-                type: "get",
-                url: "<%=basePath%>customer/edit.action",
-                data: {"id": id},
-                success: function (data) {
-                    $("#detail_customerno").val(data.customerno);
-                    $("#detail_orderno").val(id);
-                    $("#detail_customerName").val(data.customername);
-                    $("#detail_startAddress").val(data.start_address);
-                    $("#detail_endAddress").val(data.end_address)
-                    $("#detail_orderDate").val(data.orderdate)
-                    $("#detail_phone").val(data.phone)
-                    $("#detail_qq").val(data.qq);
-                    $("#detail_wechat").val(data.wechat);
-                    $("#detail_note").val(data.note);
-                }
-            });
-        }
-        //修改已发布的拼车信息
-        function updateInfo() {
-            $.post("<%=basePath%>/customer/updateInfo.action",$("#edit_customer_form").serialize(),function(data){
-                alert("修改信息成功！");
-                window.location.reload();
-            });
-        }
-        //删除已经发布的拼车信息
-        function deleteInfo(orderNo) {
-            if(confirm("该操作将删除一条已发布记录，要继续该操作吗？")){
-                $.post("<%=basePath%>/customer/deleteInfo.action",{"orderNo":orderNo},function (data) {
-                    alert("成功删除该条记录！")
-                    window.location.reload();
-                })
-            }
-        }
 
-
-    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -289,7 +251,7 @@
                     <div class="form-group">
                         <label for="detail_note" class="col-sm-2 control-label">备注</label>
                         <div class="col-sm-10">
-                            <textarea type="" style="resize: none;overflow: hidden" class="form-control"
+                            <textarea type="" style="resize: none;" class="form-control"
                                       id="detail_note" placeholder="备注"
                                       required name="note">
 
@@ -305,5 +267,44 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function editInfo(id) {
+        $.ajax({
+            type: "get",
+            url: "<%=basePath%>customer/edit.action",
+            data: {"id": id},
+            success: function (data) {
+                $("#detail_customerno").val(data.customerno);
+                $("#detail_orderno").val(id);
+                $("#detail_customerName").val(data.customername);
+                $("#detail_startAddress").val(data.start_address);
+                $("#detail_endAddress").val(data.end_address)
+                $("#detail_orderDate").val(data.orderdate)
+                $("#detail_phone").val(data.phone)
+                $("#detail_qq").val(data.qq);
+                $("#detail_wechat").val(data.wechat);
+                $("#detail_note").val(data.note);
+            }
+        });
+    }
+    //修改已发布的拼车信息
+    function updateInfo() {
+        $.post("<%=basePath%>/customer/updateInfo.action",$("#edit_customer_form").serialize(),function(data){
+            alert("修改信息成功！");
+            window.location.reload();
+        });
+    }
+    //删除已经发布的拼车信息
+    function deleteInfo(orderNo) {
+        if(confirm("该操作将删除一条已发布记录，要继续该操作吗？")){
+            $.post("<%=basePath%>/customer/deleteInfo.action",{"orderNo":orderNo},function (data) {
+                alert("成功删除该条记录！")
+                window.location.reload();
+            })
+        }
+    }
+
+
+</script>
 </body>
 </html>

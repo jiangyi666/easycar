@@ -29,18 +29,7 @@
     <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
     <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
     <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#titleHeader").toggle(1000);
-            $("#feedBackDiv").fadeToggle(1000);
-        })
-        function createFeedBack() {
-            $.post("<%=basePath%>feedBack/createFeedBack.action",$("#create_feedBack_form").serialize(),function (data) {
-                alert("感谢您的反馈，祝您生活愉快！")
-                window.location.href="<%=basePath%>customer/list.action";
-            })
-        }
-    </script>
+
 </head>
 <body style="background-color: #f3f3f4;">
 <div class="container">
@@ -56,7 +45,12 @@
             <p style="color: forestgreen;">
                 <em><strong>感谢您使用快拼网，如果您在使用途中发现什么问题，
                     您可以在下方填写后反馈给我们，我们会努力改进，您的支持是对我们最大的鼓励！
-                    如果快拼网的问题对您造成不便，我们对此深表歉意！</strong></em>
+                    如果快拼网的问题对您造成不便，我们对此深表歉意！您也可以添加QQ反馈！</strong></em>
+            </p>
+            <p>
+                <a href="mqqwpa://im/chat?chat_type=wpa&uin=2926250136&version=1&src_type=web&web_src=lvlingseeds.com" target="_blank">QQ反馈(手机端)</a>
+                <a href="tencent://message/?uin=2926250136&Site=&menu=yes" target="_blank">QQ反馈(pc端)</a>
+
             </p>
             <form class="form-horizontal" role="form" id="create_feedBack_form" action="">
                 <input type="hidden" id="create_customerno" name="customerno" value="<%=request.getSession().getAttribute("customerNo")%>"/>
@@ -83,5 +77,21 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#titleHeader").toggle(1000);
+        $("#feedBackDiv").fadeToggle(1000);
+    })
+    function createFeedBack() {
+        if($("#create_note").val()){
+            $.post("<%=basePath%>feedBack/createFeedBack.action",$("#create_feedBack_form").serialize(),function (data) {
+                alert("感谢您的反馈，祝您生活愉快！")
+                window.location.href="<%=basePath%>customer/list.action";
+            })
+        }else {
+            alert("请填写反馈内容再提交!")
+        }
+    }
+</script>
 </body>
 </html>
