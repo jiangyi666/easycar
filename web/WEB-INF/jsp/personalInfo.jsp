@@ -72,14 +72,14 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation"
          style="margin-bottom: 0">
-        <div class="navbar-header">
+        <div class="navbar-header"  style="background-color:#51ADED">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span> <span
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">快拼网</a>
+            <a class="navbar-brand" href="<%=basePath%>" style="color: white;">快拼网</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -114,6 +114,8 @@
                             class="fa fa-dashboard fa-fw" class="active"></i> 我的发布</a></li>
                     <li><a href="<%=basePath%>/feedBack/toFeedBack.action"><i
                             class="fa fa-question-circle  fa-fw" ></i> 反馈</a></li>
+                    <li><a href="#"><i
+                            class="fa fa-star  fa-fw" ></i> 鸣谢：福师大小星星</a></li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

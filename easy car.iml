@@ -22,8 +22,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Spring-4.3.18.RELEASE" level="project" />
-    <orderEntry type="library" name="Spring MVC" level="project" />
+    <orderEntry type="library" exported="" name="Spring-4.3.18.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="Spring MVC" level="project" />
     <orderEntry type="library" name="JavaEE" level="project" />
     <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="library" name="javax.activation" level="project" />
